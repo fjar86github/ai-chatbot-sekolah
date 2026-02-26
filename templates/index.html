@@ -1,19 +1,26 @@
-<h2>Chatbot Sekolah</h2>
+<h2>AI Sekolah</h2>
 
-<input id="q" placeholder="Tanya...">
-<button onclick="ask()">Tanya</button>
+<div style="border:1px solid #ccc;padding:10px;height:300px;overflow:auto" id="chat"></div>
 
-<p id="a"></p>
+<input id="q" placeholder="Tanya..." style="width:70%">
+<button onclick="ask()">Kirim</button>
 
 <script>
 async function ask(){
 let q=document.getElementById("q").value
+let chat=document.getElementById("chat")
+
+chat.innerHTML += "<p><b>Anda:</b> "+q+"</p>"
+
 let r=await fetch("/chat",{
 method:"POST",
 headers:{"Content-Type":"application/json"},
 body:JSON.stringify({question:q})
 })
+
 let d=await r.json()
-document.getElementById("a").innerText=d.answer
+
+chat.innerHTML += "<p><b>AI:</b> "+d.answer+"</p>"
+chat.scrollTop = chat.scrollHeight
 }
 </script>
