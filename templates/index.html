@@ -1,0 +1,19 @@
+<h2>Chatbot Sekolah</h2>
+
+<input id="q" placeholder="Tanya...">
+<button onclick="ask()">Tanya</button>
+
+<p id="a"></p>
+
+<script>
+async function ask(){
+let q=document.getElementById("q").value
+let r=await fetch("/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({question:q})
+})
+let d=await r.json()
+document.getElementById("a").innerText=d.answer
+}
+</script>
