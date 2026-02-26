@@ -17,6 +17,9 @@ db = Chroma(persist_directory="db", embedding_function=embedding)
 
 memory_store = {}
 
+#STATISTIK PERTANYAAN
+question_log = []
+
 #Tambahkan USER & PASSWORD:
 ADMIN_USER = "admin"
 ADMIN_PASS = "sekolah123"
@@ -98,8 +101,17 @@ def chat():
 
     memory_store[user_id].append(f"User: {question}")
     memory_store[user_id].append(f"AI: {answer}")
-
+    #masukan log pertanyaan statistik
+    question_log.append(question)
     return jsonify({"answer": answer})
+
+#Route Statistik
+@app.route("/stats")
+@login_required
+def stats():
+    from collections import Counter
+    data = Counter(question_log)
+    return jsonify(data)
 
 @app.route("/admin")
 @login_required
