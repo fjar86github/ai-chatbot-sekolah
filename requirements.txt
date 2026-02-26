@@ -1,0 +1,7 @@
+flask
+langchain
+langchain-community
+chromadb
+pypdf
+sentence-transformers
+ollama
